@@ -16,4 +16,12 @@ function initMap() {
       lat: 51.53331, lng: -0.1260625},
     map: map
   });
+
+  var informationWindow = new google.maps.InfoWindow({
+    content: '<h1> Google Kings Cross </h2>',
+  });
+
+  placeMarker.addListener('click',function(){
+    informationWindow.open(map, placeMarker);
+  });
 };
