@@ -6,3 +6,8 @@ body{
   height:500px;
   width: 100%;
 }
+
+#location-button>button{
+  height:50px;
+  width: 100px;
+}
