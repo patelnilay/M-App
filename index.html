@@ -13,12 +13,27 @@
   <h1>My M-App</h1>
   <div id="map"></div>
 
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXBFdXKTa3mGryd_OWS98JJuW1-2C3Ibo&callback=initMap"
-      async defer></script>
-    <script src="scripts/main.js"></script>
   <div id="location-button">
     <button type="button" id="get-location">Get Location</button>
   </div>
+
+  <div id="get-route-button">
+    <button type="button" id="get-route" disabled>find route</button>
+  </div>
+
+  <div>
+    <strong>Mode of Travel: </strong>
+    <select id="mode">
+      <option value="DRIVING">Driving</option>
+      <option value="WALKING">Walking</option>
+      <option value="TRANSIT">Public Transport</option>
+    </select>
+  </div>
+
+
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpS3ME677cNmwH--CzR5B5LKBYS1NOqkw&callback=initMap" async defer></script>
+  <script src="scripts/main.js"></script>
 </body>
 
 </html>
