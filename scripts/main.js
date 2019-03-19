@@ -3,7 +3,7 @@ var destinationPosition = {
   lng: -0.1260625
 }
 
-var pos;
+var userPosition;
 
 
 function initMap() {
@@ -63,19 +63,18 @@ function geoLocate(map, infoWindow) {
   // Try HTML5 geolocation in browser.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      pos = {
+      userPosition = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
 
       document.getElementById('get-route').disabled =false;
-      console.log("SDASFSG")
-      console.log(pos)
+      console.log(userPosition)
 
-      infoWindow.setPosition(pos);
+      infoWindow.setPosition(userPosition);
       infoWindow.setContent('Location found.');
       infoWindow.open(map);
-      map.setCenter(pos);
+      map.setCenter(userPosition);
     }, function() {
       locationNotFound(true, infoWindow, map.getCenter());
     });
@@ -95,7 +94,6 @@ function geoLocate(map, infoWindow) {
 
 };
 
-console.log(pos)
 
 function getRouteDirections(map) {
 
@@ -113,7 +111,7 @@ function getRouteDirections(map) {
 
       var selectedTravelModel = document.getElementById('mode').value;
       var request = {
-        origin: pos,
+        origin: userPosition,
         destination: destinationPosition,
         travelMode: google.maps.TravelMode[selectedTravelModel]
       };
