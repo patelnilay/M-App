@@ -1,25 +1,63 @@
-var destinationPosition = {
+/**
+ *
+ *   Google Project Challence - Google Maps API
+ *   main.js
+ *
+ *   Created By Nilay Patel
+ *
+ */
+
+// Initialise global variables final destination and user's position.
+var finalDestinationPosition = {
   lat: 51.53331,
   lng: -0.1260625
 }
 
 var userPosition;
+var selectedTravelModel = 'DRIVING';
+
+// This function
+
+function transportSelection(button){
+  for (aButton of document.getElementById('transport-options').children){
+    if (aButton.value != button.value){
+      aButton.style.color="rgba(255,255,255, 0.6)"
+      continue;
+    }
+  }
+  selectedTravelModel = button.value
+  button.style.color = "#f1c40f"
 
 
+}
+
+/**
+ * @function initMap
+ * @description This function intialises and configures the map. It gets called in the API request ("callback=initMap")
+ */
 function initMap() {
 
-  drawnMap = setupMap()
+  // Initialises drawnMap variable which hold the map and calls setupMap function
+  let drawnMap = setupMap()
+
+  // Calls setPlaceMarker function which sets a marker on the final destination
   setPlaceMarker(drawnMap);
 
+  // gets Get Location button from index and calls geoLocate function when the button is clicked.
   document.getElementById("get-location").onclick = function() {
+    // function call to geoLocate()
     geoLocate(drawnMap);
   };
 
+  // calls getRouteDirections function which finds and draws a route depending on selected travel mode.
   getRouteDirections(drawnMap);
 };
 
-
-function setupMap(map) {
+/**
+ * @function setupMap
+ * @description Initialises map and provied initialising options returns the map.
+ */
+function setupMap() {
 
   // options for map
   var options = {
@@ -40,12 +78,12 @@ function setPlaceMarker(map) {
 
   // add marker to map at Google Kings Cross
   var placeMarker = new google.maps.Marker({
-    position: destinationPosition,
+    position: finalDestinationPosition,
     map: map
   });
 
   var informationWindow = new google.maps.InfoWindow({
-    content: '<h3> <strong> Google Kings Cross </strong> </h3> <h5> 6 Pancras Square<br>London N1C 4AG<br>United Kingdom <br> Phone: +44-20-7031-3000</h5>',
+    content: '<h5> <strong> Google Kings Cross </strong> </h5> <h6> 6 Pancras Square<br>London N1C 4AG<br>United Kingdom <br> Phone: +44-20-7031-3000</h6>',
   });
 
   placeMarker.addListener('click', function() {
@@ -109,17 +147,17 @@ function getRouteDirections(map) {
   function calculateRoute() {
 
 
-      var selectedTravelModel = document.getElementById('mode').value;
+
       var request = {
         origin: userPosition,
-        destination: destinationPosition,
+        destination: finalDestinationPosition,
         travelMode: google.maps.TravelMode[selectedTravelModel]
       };
 
       if (request.travelMode == 'TRANSIT') {
         request = {
           origin: userPosition,
-          destination: destinationPosition,
+          destination: finalDestinationPosition,
           travelMode: 'TRANSIT',
           transitOptions: {
             modes: ['BUS', 'RAIL'],
